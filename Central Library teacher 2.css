@@ -1,0 +1,33 @@
+p{
+    font-size:40px;
+    font-weight:bold;
+    color:rgb(58, 58, 191);
+}
+.container{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    text-align:center;
+}
+.container-item{
+    font-size:40px;
+    width:70%;
+}
+.alert{
+    width:70%;
+}
+.wholecontainer{
+    display:flex;
+}
+button{
+    text-align:center;
+    padding:5px;
+    color:white;
+}
+#output-el{
+    text-align:center;
+    color:goldenrod;
+}
+h2{
+    color:aqua;
+}
