@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Waste Management at NIT Silchar</title>
+    <link rel="stylesheet" type="text/css" href="../app/Waste Management.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Waste Management</a>
+    
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" id="searchTxt" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <div class="container my-3">
+        <h1 id="To-Dos">Enter the details of wastes</h1><hr>
+        
+        <div class="card lead">
+            <div class="card-body">
+                <div class="form-group">
+                    <h5 class="card-title">Name</h5>
+                    <input type="text" class="form-control alert alert-info" id="addName" aria-describedby="time"
+                        placeholder="Enter your name" role="alert">
+                </div>
+                <div class="form-group">
+                    <h5 class="card-title">Contact Number</h5>
+                    <input type="text" class="form-control alert alert-info" id="addNumber" aria-describedby="time"
+                        placeholder="Enter your contact number" role="alert">
+                </div>
+                <h5 class="card-title">Nature of waste</h5>
+<input class="form-control alert alert-info" list="datalistOptions" id="addNature" placeholder="Type to search...">
+<datalist id="datalistOptions">
+  <option value="Dairy" id="Dairy">
+  <option value="Pulp and Paper" id="Pulp and Paper">
+  <option value="Fertilizer" id = "Fertilizer">
+  <option value="Plastic waste" id = "Plastic waste">
+  <option value="Food waste" id = "Food waste">
+    <option value="Dispensary waste" id= "Dispensary waste">
+</datalist>
+<div class="form-group">
+    <h5 class="card-title">Location</h5>
+    <input type="text" class="form-control alert alert-info" id="addLocation" aria-describedby="time"
+        placeholder="Enter the location of the waste" role="alert">
+</div>
+                <button class="btn btn-primary" id="addBtn">Save your entry</button>
+            </div>
+        </div>
+        
+        <h1 id="tasks" class="my-2">Registered Wastes</h1>
+        <hr>
+        <div id="notes" class="row container-fluid"> </div>
+    </div>
+    <!--<button id="submit">Submit</button>
+    <div id="table">
+        <h1>To the Management Authorities</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr class="table-warning">
+                    <th scope="col">Nature of waste</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody id='tableBody'></tbody>
+        </table>
+    </div>-->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="../app/Waste Management.js"></script>
+</body>
+
+</html>
