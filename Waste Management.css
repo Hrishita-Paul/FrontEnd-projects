@@ -1,27 +1,27 @@
 h1{
-    color:blue;
+    color:rgb(10, 28, 134);
     font-weight:bolder;
     text-align:center
 }
 
 body{
-    background:linear-gradient(to right,pink,rgb(255, 255, 123),orange);
+    background:linear-gradient(to right,rgb(123, 255, 198),rgb(64, 191, 250),rgb(185, 167, 255));
 }
 
 #To-Dos{
-animation-name:sky-to-blue-violet-to-blue;
-animation-duration:4s;
-animation-iteration-count:4;
+animation-name:purple-to-pink-to-blue;
+animation-duration:5s;
+animation-iteration-count:1;
 }
 
-@keyframes sky-to-blue-violet-to-blue{
+@keyframes purple-to-pink-to-blue{
     0%{
-        color:rgb(22, 198, 204);
+        color:purple;
     }
     50%{
-        color:blueviolet;
+        color:rgb(192, 67, 150);
     }
     100%{
-        color:blue;
+        color:rgb(10, 28, 134);
     }
 }
