@@ -1,106 +1,155 @@
-displayToDo();
-
-// Adding a To-Do to the localStorage
-
+displayWastes();
+displayRow();
+let addName = document.getElementById("addName")
+let addNumber = document.getElementById("addNumber")
+let addNature = document.getElementById("addNature")
+let addLocation = document.getElementById("addLocation")
 let addBtn = document.getElementById("addBtn");
-addBtn.addEventListener("click", function(e) {
+addBtn.addEventListener("click", function (e) {
 
- 
-  let list = localStorage.getItem("notes");
-  if (list== null) {
-    ToDoObj = [];
+
+  let list = localStorage.getItem("wastes");
+  if (list == null) {
+    wasteObj = [];
   } else {
-    ToDoObj = JSON.parse(list);
+    wasteObj = JSON.parse(list);
   }
   let Obj = {
-    name:addName.value,
-    number:addNumber.value,
+    name: addName.value,
+    number: addNumber.value,
     nature: addNature.value,
     location: addLocation.value
   }
-
-  //console.log(Obj.time)
-
-  ToDoObj.push(Obj);
-  localStorage.setItem("notes", JSON.stringify(ToDoObj));
- 
+  wasteObj.push(Obj);
+  localStorage.setItem("wastes", JSON.stringify(wasteObj));
   addName.value = "";
-  addNumber.value="";
+  addNumber.value = "";
   addNature.value = "";
   addLocation.value = "";
- //console.log(ToDoObj);
-  displayToDo();
+  displayWastes();
 });
 
+
 // Function to show elements from localStorage
-function displayToDo() {
-  let list = localStorage.getItem("notes");
+function displayWastes() {
+  let list = localStorage.getItem("wastes");
   if (list == null) {
-    ToDoObj = [];
+    wasteObj = [];
   } else {
-    ToDoObj = JSON.parse(list);
+    wasteObj = JSON.parse(list);
   }
-  let ToDo = "";
-  ToDoObj.forEach(function(element,index) {
-    ToDo += `
+  let card = "";
+  wasteObj.forEach(function (element, index) {
+    card += `
             <div class="task my-2 mx-2 card" style="width: 18rem;">
                     <div class="card-body card-background">
-                        <h5 class="card-title time">Nature of waste: ${element.nature}</h5><br>
-                        <h5 class="card-subtitle mb-2 text-muted">Location: ${element.location}</h5><br>
-                        <p class="card-text">Name: ${element.name}</p>
+                    <h5>Nature of waste:</h5><h5 class="card-title nature"> ${element.nature}</h5><br>
+                    Location:<span class= "location"> ${element.location}</span><br>
+                        Name:<span class="card-text name">${element.name}</span>
                         <p class="card-text">Number: ${element.number}</p>
-                        <button id="${index}" class="btn btn-danger" onclick="deleteToDo(this.id)">X</button>
+                        <button id="${index}" class="btn btn-danger" onclick="deleteWastes(this.id)">X</button>
 
                     </div>
                 </div>`;
-    
-  })
 
-  let Elm = document.getElementById("notes");
-  if (ToDoObj.length != 0) {
-    Elm.innerHTML = ToDo;
+  })
+ 
+
+  let Elm = document.getElementById("wastes");
+  if (wasteObj.length != 0) {
+    Elm.innerHTML = card;
   } else {
-    Elm.innerHTML = "No wastes as of now";
+    Elm.innerHTML = "No waste found as of now";
   }
 }
-// Function to delete a task
-function deleteToDo(index) {
+// Function to delete a waste
+function deleteWastes(index) {
 
-    let list = localStorage.getItem("notes");
-    if (list == null) {
-      ToDoObj = [];
-    } else {
-      ToDoObj = JSON.parse(list);
-    }
-  
-    ToDoObj.splice(index, 1);
-    localStorage.setItem("notes", JSON.stringify(ToDoObj));
-    displayToDo();
+  let list = localStorage.getItem("wastes");
+  if (list == null) {
+    wasteObj = [];
+  } else {
+    wasteObj = JSON.parse(list);
   }
-//   if(addNature.value=="Dairy"|| addNature.value=="Pulp and Paper"||addNature.value=="Fertilizer"||addNature.value=="Plastic waste"||addNature.value=="Dispensary waste"||addNature.value=="Food waste"){
-//     nature=addNature.value;
-//       }
-    
-    
-    
 
-//     let submit= document.getElementById('submit');
-// submit.addEventListener('click', Submit);
+  wasteObj.splice(index, 1);
+  localStorage.setItem("wastes", JSON.stringify(wasteObj));
+  displayWastes();
+}
 
-// function Submit(e) {
-//    // console.log('You have submitted library form');
-//    let tableBody = document.getElementById('tableBody');
-//         let uiString = `<tr>
-//                             <td>${Obj.name}</td>
-//                             <td>${Obj.location}</td>
-//                             <td>${Obj.nature}</td>
-//                         </tr>`;
-//         tableBody.innerHTML += uiString;
-// }
+
+
+
+
+let submit = document.getElementById('submit');
+submit.addEventListener('click', Submit);
+
+function Submit(e) {
+  let nature = document.getElementsByClassName("nature")
+  let location = document.getElementsByClassName("location")
+  let name = document.getElementsByClassName("name")
+
+  let list = localStorage.getItem("waste");
+  if (list == null) {
+    newWasteObj = [];
+  } else {
+    newWasteObj = JSON.parse(list);
+  }
+
+  let newObj = {
+    name: name.innerText,
+    nature: nature.innerText,
+    location: location.innerText,
+  }
+  newWasteObj.push(newObj);
+  localStorage.setItem("waste", JSON.stringify(newWasteObj));
+  addName.value = "";
+  addNumber.value = "";
+  addNature.value = "";
+  addLocation.value = "";
+  displayRow()
+  
+  }
+function displayRow(){
+  let tableBody = document.getElementById('tableBody');
+  let list = localStorage.getItem("waste");
+  if (list == null) {
+    newWasteObj = [];
+  } else {
+    newWasteObj = JSON.parse(list);
+  }
  
-    
+  newWasteObj.forEach(function (element, index) {
+    let uiString = `<tr>
+    <td>${element.nature}</td>
+    <td>${element.location}</td>
+    <td>${element.name}</td>
+    <td><button id="${index}" class="btn btn-danger" onclick="${deleteWastesRow(this.id)}">X</button></td>
+</tr>`;
+
+    tableBody.innerHTML += uiString;
+    console.log(element.nature)
+  })
+}
+
+function deleteWastesRow(index) {
+  let list = localStorage.getItem("waste");
+  if (list == null) {
+    newWasteObj = [];
+  } else {
+    newWasteObj = JSON.parse(list);
+  }
+  newWasteObj.splice(index, 1);
+  localStorage.setItem("waste", JSON.stringify(newWasteObj));
+  
+  displayRow()
  
-    
+}
+
+ 
+
+
+
 
 
 

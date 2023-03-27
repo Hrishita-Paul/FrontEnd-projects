@@ -156,7 +156,6 @@ Obj={
   time:date.innerText,
   text:newText
 }
-console.log(Obj)
 ToDoObj.push(Obj)
 
 localStorage.setItem("notes",JSON.stringify(ToDoObj))
