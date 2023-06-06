@@ -1,71 +1,98 @@
+// Display the initial wastes and rows
 displayWastes();
 displayRow();
-let addName = document.getElementById("addName")
-let addNumber = document.getElementById("addNumber")
-let addNature = document.getElementById("addNature")
-let addLocation = document.getElementById("addLocation")
+
+// Get input elements
+let addName = document.getElementById("addName");
+let addNumber = document.getElementById("addNumber");
+let addNature = document.getElementById("addNature");
+let addLocation = document.getElementById("addLocation");
+let addDate = document.getElementById("addDate");
 let addBtn = document.getElementById("addBtn");
+let clearCardsBtn = document.getElementById("clearCardsBtn");
+
+// Add event listener to Add button
 addBtn.addEventListener("click", function (e) {
-
-
   let list = localStorage.getItem("wastes");
+
   if (list == null) {
     wasteObj = [];
   } else {
     wasteObj = JSON.parse(list);
   }
-  let Obj = {
+
+  let obj = {
     name: addName.value,
     number: addNumber.value,
     nature: addNature.value,
-    location: addLocation.value
-  }
-  wasteObj.push(Obj);
+    location: addLocation.value,
+    date: addDate.value,
+    isDone: false, // Set isDone property to false for new wastes
+  };
+
+  wasteObj.push(obj);
   localStorage.setItem("wastes", JSON.stringify(wasteObj));
+
+  // Clear input values
   addName.value = "";
   addNumber.value = "";
   addNature.value = "";
   addLocation.value = "";
+  addDate.value = "";
+
   displayWastes();
+  displayRow(); // Add this line to update the rows after adding a waste
 });
 
-
-// Function to show elements from localStorage
+// Function to display wastes from localStorage
 function displayWastes() {
   let list = localStorage.getItem("wastes");
+
   if (list == null) {
     wasteObj = [];
   } else {
     wasteObj = JSON.parse(list);
   }
+
   let card = "";
+
   wasteObj.forEach(function (element, index) {
-    card += `
-            <div class="task my-2 mx-2 card" style="width: 18rem;">
-                    <div class="card-body card-background">
-                    <h5>Nature of waste:</h5><h5 class="card-title nature"> ${element.nature}</h5><br>
-                    Location:<span class= "location"> ${element.location}</span><br>
-                        Name:<span class="card-text name">${element.name}</span>
-                        <p class="card-text">Number: ${element.number}</p>
-                        <button id="${index}" class="btn btn-danger" onclick="deleteWastes(this.id)">X</button>
+    // Check if the necessary properties exist in the current element
+    if (
+      element &&
+      element.nature &&
+      element.location &&
+      element.name &&
+      element.number &&
+      element.date
+    ) {
+      card += `
+      <div class="task my-2 mx-2 card" style="width: 18rem;">
+        <div class="card-body card-background">
+          <h5>Nature of waste:</h5>
+          <h5 class="card-title nature">${element.nature}</h5><br>
+          Location: <span class="location">${element.location}</span><br>
+          Name: <span class="card-text name">${element.name}</span>
+          <p class="card-text">Contact Number: ${element.number}</p>
+          <p class="card-text">Date: ${element.date}</p>
+          <button id="${index}" class="btn btn-danger" onclick="deleteWastes(this.id)">X</button>
+        </div>
+      </div>`;
+    }
+  });
 
-                    </div>
-                </div>`;
+  let elm = document.getElementById("wastes");
 
-  })
- 
-
-  let Elm = document.getElementById("wastes");
   if (wasteObj.length != 0) {
-    Elm.innerHTML = card;
+    elm.innerHTML = card;
   } else {
-    Elm.innerHTML = "No waste found as of now";
+    elm.innerHTML = "No waste found as of now";
   }
 }
-// Function to delete a waste
-function deleteWastes(index) {
 
+function deleteWastes(index) {
   let list = localStorage.getItem("wastes");
+
   if (list == null) {
     wasteObj = [];
   } else {
@@ -75,81 +102,127 @@ function deleteWastes(index) {
   wasteObj.splice(index, 1);
   localStorage.setItem("wastes", JSON.stringify(wasteObj));
   displayWastes();
+  displayRow();
+
+  // Remove corresponding row from table
+  let tableRows = document.querySelectorAll("#tableBody tr");
+  if (tableRows.length > index) {
+    tableRows[index].remove();
+  }
 }
 
 
-
-
-
-let submit = document.getElementById('submit');
-submit.addEventListener('click', Submit);
+// Event listener for submit button
+let submit = document.getElementById("submit");
+submit.addEventListener("click", Submit);
 
 function Submit(e) {
-  let nature = document.getElementsByClassName("nature")
-  let location = document.getElementsByClassName("location")
-  let name = document.getElementsByClassName("name")
+  let list = localStorage.getItem("wastes");
+  let newWasteObj;
 
-  let list = localStorage.getItem("waste");
   if (list == null) {
     newWasteObj = [];
   } else {
     newWasteObj = JSON.parse(list);
   }
 
-  let newObj = {
-    name: name.innerText,
-    nature: nature.innerText,
-    location: location.innerText,
+  let cardElements = document.getElementsByClassName("task");
+
+  for (let i = 0; i < cardElements.length; i++) {
+    let nature = cardElements[i].querySelector(".nature").textContent;
+    let location = cardElements[i].querySelector(".location").textContent;
+    let name = cardElements[i].querySelector(".name").textContent;
+
+    // Check if the waste is already present in the newWasteObj
+    let isDuplicate = newWasteObj.some(function (element) {
+      return (
+        element.natureTable === nature &&
+        element.locationTable === location &&
+        element.nameTable === name
+      );
+    });
+
+    if (!isDuplicate) {
+      let newObj = {
+        nameTable: name,
+        natureTable: nature,
+        locationTable: location,
+        isDone: false, // Set isDone property to false for new wastes
+      };
+
+      newWasteObj.push(newObj);
+    }
   }
-  newWasteObj.push(newObj);
-  localStorage.setItem("waste", JSON.stringify(newWasteObj));
+
+  localStorage.setItem("wastes", JSON.stringify(newWasteObj));
+
+  // Clear input values
   addName.value = "";
   addNumber.value = "";
   addNature.value = "";
   addLocation.value = "";
-  displayRow()
-  
-  }
-function displayRow(){
-  let tableBody = document.getElementById('tableBody');
-  let list = localStorage.getItem("waste");
+  addDate.value = "";
+
+  displayRow();
+}
+
+function displayRow() {
+  let tableBody = document.getElementById("tableBody");
+  let list = localStorage.getItem("wastes");
+
   if (list == null) {
     newWasteObj = [];
   } else {
     newWasteObj = JSON.parse(list);
   }
- 
-  newWasteObj.forEach(function (element, index) {
-    let uiString = `<tr>
-    <td>${element.nature}</td>
-    <td>${element.location}</td>
-    <td>${element.name}</td>
-    <td><button id="${index}" class="btn btn-danger" onclick="${deleteWastesRow(this.id)}">X</button></td>
-</tr>`;
 
-    tableBody.innerHTML += uiString;
-    console.log(element.nature)
-  })
+  tableBody.innerHTML = ""; // Clear table body before adding rows
+
+  newWasteObj.forEach(function (element, index) {
+    // Check if the necessary properties exist in the current element
+    if (element && element.natureTable && element.locationTable && element.nameTable) {
+      let rowClass = element.isDone ? "row-done" : "";
+      let uiString = `
+      <tr class="${rowClass}">
+        <td>${element.natureTable}</td>
+        <td>${element.locationTable}</td>
+        <td>${element.nameTable}</td>
+        <td><button id=${index} class="btn btn-danger" onclick="deleteWastesRow(${index})">Delete</button></td>
+      </tr>`;
+    
+
+      tableBody.insertAdjacentHTML("beforeend", uiString);
+    }
+  });
 }
+
 
 function deleteWastesRow(index) {
-  let list = localStorage.getItem("waste");
+  let list = localStorage.getItem("wastes");
+
   if (list == null) {
     newWasteObj = [];
   } else {
     newWasteObj = JSON.parse(list);
   }
+
   newWasteObj.splice(index, 1);
-  localStorage.setItem("waste", JSON.stringify(newWasteObj));
-  
-  displayRow()
- 
+  localStorage.setItem("wastes", JSON.stringify(newWasteObj));
+  displayWastes();
+  displayRow();
+
+  // Remove corresponding row from table
+  let tableRows = document.querySelectorAll("#tableBody tr");
+  if (tableRows.length > index) {
+    tableRows[index].remove();
+  }
 }
 
- 
 
 
-
-
-
-
+// Clear all cards button event listener
+clearCardsBtn.addEventListener("click", function (e) {
+  localStorage.removeItem("wastes");
+  displayWastes();
+  displayRow();
+});

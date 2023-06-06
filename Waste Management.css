@@ -1,4 +1,4 @@
-h1{
+h2{
     color:rgb(10, 28, 134);
     font-weight:bolder;
     text-align:center
@@ -7,21 +7,14 @@ h1{
 body{
     background:linear-gradient(to right,rgb(123, 255, 198),rgb(64, 191, 250),rgb(185, 167, 255));
 }
-
-#To-Dos{
-animation-name:purple-to-pink-to-blue;
-animation-duration:5s;
-animation-iteration-count:1;
-}
-
-@keyframes purple-to-pink-to-blue{
-    0%{
-        color:purple;
-    }
-    50%{
-        color:rgb(192, 67, 150);
-    }
-    100%{
-        color:rgb(10, 28, 134);
-    }
-}
+  #submit {
+    margin-left: 210px;
+    float: left;
+  }
+  
+  .clear-all-button {
+    margin-right: 220px;
+    float: right;
+  }
+  
+  
